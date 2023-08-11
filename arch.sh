@@ -1,4 +1,4 @@
-##!/bin/bash
+#!/bin/bash
 
 root_partition="/dev/sda3"
 hostname="arch"
