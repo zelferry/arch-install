@@ -1,6 +1,10 @@
 #!/bin/bash
 
 root_partition="/dev/sda3"
+
+user_name="zelf"
+pass="1903758"
+
 hostname="arch"
 
 show_status() {
@@ -30,6 +34,7 @@ configure_system() {
         echo '127.0.0.1 localhost' >> /etc/hosts
         echo '::1 localhost' >> /etc/hosts
         echo '::1 $hostname.localdomain $hostname' >> /etc/hosts
+        pacstrap /mnt base base-devel linux linux-firmware nano dhcpcd netctl
         "
 }
 
@@ -52,8 +57,8 @@ install_xfce4() {
 add_user() {
     show_status "Adicionando usuário"
     arch-chroot /mnt /bin/bash -c "
-        useradd -m -G wheel -s /bin/bash zelferry
-        passwd 1903758
+        useradd -m -G wheel -s /bin/bash $user_name
+        passwd $pass
         echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
         "
 }
@@ -78,4 +83,3 @@ set_root_password
 unmount_partitions
 
 show_status "Instalação concluída! Reinicie o sistema para acessar o dual boot."
-
